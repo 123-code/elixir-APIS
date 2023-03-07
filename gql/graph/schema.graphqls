@@ -1,0 +1,48 @@
+
+type Paciente{
+    id: ID!
+    nombre: String!
+    apellido: String!
+    Vsemana:Int!
+    Paga:Int!
+    createdAt: String!
+    updatedAt: String!
+    deletedAt: String
+}
+
+type terapista{
+    id: ID!
+    nombre: String!
+    apellido: String!
+    createdAt: String!
+    updatedAt: String!
+    deletedAt: String
+}
+
+type Query{
+  #query all pacientes
+  pacientes: [Paciente!]!
+  #query a single paciente
+  paciente(id: ID!): Paciente!
+}
+
+type Mutation{
+  createPaciente(input: PacienteInput!): Paciente!
+  UpdatePaciente(id: ID!, input: UpdatePaciente!): Paciente!
+  #DeletePaciente(id:ID!): DeletePacienteResponse!
+}
+
+input PacienteInput{
+  nombre:String!
+  apellido:String!
+  Vsemana:Int!
+  Paga:Int!
+}
+
+input UpdatePaciente{
+  nombre:String
+  apellido:String
+  Vsemana:Int
+  Paga:Int
+}
+

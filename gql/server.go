@@ -1,13 +1,13 @@
 package main
 
 import (
-	"GraphQLImp/graph"
+	"gql/graph"
 	"log"
 	"net/http"
 	"os"
+
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	// "GraphQL/DB"
 )
 
 const defaultPort = "8080"
