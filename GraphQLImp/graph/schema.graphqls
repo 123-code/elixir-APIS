@@ -1,0 +1,36 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Paciente{
+  id:ID!
+  nombre:String!
+  apellido:String!
+  Paga:Int!
+  Vsemana:Int!
+}
+
+type Query {
+  pacientes:[Paciente!]!
+  paciente(id:ID!):Paciente!
+}
+
+input NewTodo {
+  text: String!
+  userId: String!
+}
+
+input NewPaciente {
+  id:ID!
+  nombre:String!
+  apellido:String!
+  Paga:Int!
+  Vsemana:Int!
+}
+
+type Mutation {
+  createPaciente(input:NewPaciente!):Paciente!
+  updatePaciente(id:ID!,nombre:String!,apellido:String!,Paga:Int!,Vsemana:Int!):Paciente!
+  deletePaciente(id:ID!):Paciente!
+
+}

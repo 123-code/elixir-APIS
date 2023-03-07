@@ -1,8 +1,0 @@
-type Paciente{
-    id: ID!
-    nombre: String!
-    apellido: String!
-    VPago: Int!
-    VSemanales: String!
-    Falto: String!
-}

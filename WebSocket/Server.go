@@ -5,6 +5,7 @@ import (
 	"io"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/net/websocket"
+	"GraphQL/DB/dbconn"
 )
 
 type Server struct {
