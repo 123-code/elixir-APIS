@@ -2,8 +2,14 @@
 
 package model
 
+import(
+	"gorm.io/gorm"
+)
+
+
 type Paciente struct {
-	ID        string  `json:"id"`
+	gorm.Model
+	ID       string `gorm:"primary_key"`
 	Nombre    string  `json:"nombre"`
 	Apellido  string  `json:"apellido"`
 	Vsemana   int     `json:"Vsemana"`
@@ -13,12 +19,23 @@ type Paciente struct {
 	DeletedAt *string `json:"deletedAt"`
 }
 
+
+
 type PacienteInput struct {
+	gorm.Model
+	ID       string `gorm:"primary_key"`
 	Nombre   string `json:"nombre"`
 	Apellido string `json:"apellido"`
 	Vsemana  int    `json:"Vsemana"`
 	Paga     int    `json:"Paga"`
 }
+
+/*
+func(p*PacienteInput) BeforeCreateI(tx *gorm.DB) (err error) {
+	p.ID = uuid.New()
+	return
+}
+*/
 
 type UpdatePaciente struct {
 	Nombre   *string `json:"nombre"`
