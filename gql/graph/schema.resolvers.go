@@ -2,11 +2,10 @@ package graph
 
 import (
 	"context"
-
+    "github.com/google/uuid"
 	"gql/db"
 	"gql/graph/model"
-
-	
+    "time"
 )
 
 var dbConn, _ = db.Connect()
@@ -14,12 +13,17 @@ var dbConn, _ = db.Connect()
 // CreatePaciente is the resolver for the createPaciente field.
 func (r *mutationResolver) CreatePaciente(ctx context.Context, input model.PacienteInput) (*model.Paciente, error) {
     // Create a new Paciente object and assign the input values to its fields
+    id := uuid.New().String()
+    createdAt := time.Now().String()
+    updatedAt := time.Now().String()
     paciente := model.Paciente{
-        
-        Nombre:   input.Nombre,
-        Apellido: input.Apellido,
-        Vsemana:  input.Vsemana,
-        Paga:     input.Paga,
+        ID:        id,
+        Nombre:    input.Nombre,
+        Apellido:  input.Apellido,
+        Vsemana:   input.Vsemana,
+        Paga:      input.Paga,
+        CreatedAt: createdAt,
+        UpdatedAt: updatedAt,
     }
 
     // Create the new Paciente object in the database

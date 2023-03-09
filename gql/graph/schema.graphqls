@@ -45,4 +45,3 @@ input UpdatePaciente{
   Vsemana:Int
   Paga:Int
 }
-

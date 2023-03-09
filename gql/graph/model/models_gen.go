@@ -3,47 +3,36 @@
 package model
 
 import(
+	
 	"gorm.io/gorm"
 )
 
 
 type Paciente struct {
-	gorm.Model
-	ID       string `gorm:"primary_key"`
-	Nombre    string  `json:"nombre"`
-	Apellido  string  `json:"apellido"`
-	Vsemana   int     `json:"Vsemana"`
-	Paga      int     `json:"Paga"`
-	CreatedAt string  `json:"createdAt"`
-	UpdatedAt string  `json:"updatedAt"`
-	DeletedAt *string `json:"deletedAt"`
+    gorm.Model
+    ID        string  `gorm:"primary_key"`
+    Nombre    string  `json:"nombre"`
+    Apellido  string  `json:"apellido"`
+    Vsemana   int     `json:"vsemana"`
+    Paga      int     `json:"paga"`
+    CreatedAt string  `json:"createdAt"`
+    UpdatedAt string  `json:"updatedAt"`
+    DeletedAt *string `json:"deletedAt"`
 }
-
-
 
 type PacienteInput struct {
-	gorm.Model
-	ID       string `gorm:"primary_key"`
-	Nombre   string `json:"nombre"`
-	Apellido string `json:"apellido"`
-	Vsemana  int    `json:"Vsemana"`
-	Paga     int    `json:"Paga"`
+    Nombre   string `json:"nombre"`
+    Apellido string `json:"apellido"`
+    Vsemana  int    `json:"vsemana"`
+    Paga     int    `json:"paga"`
 }
-
-/*
-func(p*PacienteInput) BeforeCreateI(tx *gorm.DB) (err error) {
-	p.ID = uuid.New()
-	return
-}
-*/
 
 type UpdatePaciente struct {
-	Nombre   *string `json:"nombre"`
-	Apellido *string `json:"apellido"`
-	Vsemana  *int    `json:"Vsemana"`
-	Paga     *int    `json:"Paga"`
+    Nombre   *string `json:"nombre"`
+    Apellido *string `json:"apellido"`
+    Vsemana  *int    `json:"vsemana"`
+    Paga     *int    `json:"paga"`
 }
-
 type Terapista struct {
 	ID        string  `json:"id"`
 	Nombre    string  `json:"nombre"`
