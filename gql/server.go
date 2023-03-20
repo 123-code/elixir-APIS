@@ -24,6 +24,15 @@ func main() {
 	
 	// Create a new CORS handler with default options
 	c := cors.Default()
+	
+	/*
+	c := cors.New(cors.Options{
+    AllowedOrigins: []string{"http://foo.com", "http://foo.com:8080"},
+    AllowCredentials: true,
+    // Enable Debugging for testing, consider disabling in production
+    Debug: true,
+})
+	*/
 
 	// Wrap the GraphQL handler with the CORS handler
 	http.Handle("/query", c.Handler(srv))
