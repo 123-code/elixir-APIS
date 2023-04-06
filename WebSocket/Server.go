@@ -1,54 +1,58 @@
-package main
+package main 
 
-import (
-	"fmt"
-	"io"
-	"github.com/gin-gonic/gin"
-	"golang.org/x/net/websocket"
-	"GraphQL/DB/dbconn"
+import("fmt"
+"net/http"
+"log"
+"github.com/gorilla/websocket"
 )
 
-type Server struct {
-connections map [*websocket.Conn]bool
+var upgrader = websocket.Upgrader{
+ReadBufferSize:1024,
+WriteBufferSize:1024,
 }
 
-func Connections() *Server{
-	return &Server{
-     connections: make(map[*websocket.Conn]bool),
+func homepage(w http.ResponseWriter,r*http.Request){
+	fmt.Fprintf(w,"Hola Mundo")
+}
+
+// check for incoming messages with loop
+func ReadMessages(conn*websocket.Conn){
+for{
+	messageType,p,err := conn.ReadMessage()
+	if(err != nil){
+		log.Println(err)
+		return
 	}
+	log.Println(string(p))
+// message has to be sent back to the client
+if err := conn.WriteMessage(messageType,p); err != nil{
+	log.Println(err)
+	return
+}
+return
+}
 }
 
-func( s *Server) handleWS(ws *websocket.Conn){
-fmt.Println("Incoming connection from:",ws.RemoteAddr());
-s.connections[ws] = true;
-s.readLoop(ws)
-}
-
-
-func (s*Server) readLoop(ws * websocket.Conn){
-	buf := make([]byte,1024);
-	for{
-		n,err := ws.Read(buf)
-		if err != nil{
-			if(err == io.EOF){
-				break
-			}
-			fmt.Println("ERROR",err)
-			continue
-		}
-		msg := string(buf[:n])
-		fmt.Println(msg);
-		ws.Write([]byte("Message"))
+func wsEndpoint(w http.ResponseWriter,r*http.Request){
+	//fmt.Fprintf(w,"WS endpoint")
+	// allow all incoming connections to the wsEndpoint 
+	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
+	ws,err := upgrader.Upgrade(w,r,nil)
+	if(err != nil){
+		fmt.Println(err)
 	}
+	log.Println("Client Successfully Connected");
+	fmt.Println("Client Successfully Connected");
+	ReadMessages(ws)
+}
+
+func setuproutes(){
+	http.HandleFunc("/", homepage)
+	http.HandleFunc("/ws", wsEndpoint)
 }
 
 func main(){
-server := gin.Default();
-server.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		});
-})
-server.Run(":8080");
-};
-
+	fmt.Println("Hello World")
+	setuproutes()
+	log.Fatal(http.ListenAndServe(":8080",nil))
+}
