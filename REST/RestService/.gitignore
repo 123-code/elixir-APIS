@@ -1,0 +1,14 @@
+# Cargo files and directories
+/target/
+/Cargo.lock
+/.cargo/
+
+# IDE or editor-specific files
+/.idea/
+.vscode/
+*.swp
+
+# Other project-specific files or directories
+/build/
+/dist/
+*.log

@@ -8,4 +8,4 @@ message Message{
 
 service Chat{
     rpc SayHello(Message) returns(Message) {}
-}
+}\
