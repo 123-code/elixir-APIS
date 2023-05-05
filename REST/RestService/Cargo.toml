@@ -14,13 +14,7 @@ log = "^0.4"
 strum_macros = "^0.24"
 strum = { version =  "^0.24" , features = ["derive"]}
 derive_more = "^0.99"
-diesel = {
-    version = "2.0.4",
-    features = ["postgres,chrono"]
-    
-    }
+diesel = { version = "2.0.4", features = ["postgres", "chrono"] }
 dotenv = "0.15.0"
 chrono = "^0"
-clap = {version = "4.2.7",features = ["yaml"]}
-
-
+clap = {version = "2.33.4",features = ["yaml"]}

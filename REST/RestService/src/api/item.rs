@@ -10,6 +10,10 @@ use actix_web::{
     http::{header::ContentType, StatusCode},
 };
 
+mod models;
+
+
+
 use serde::{Serialize, Deserialize};
 use derive_more::{Display};
 
@@ -20,8 +24,18 @@ pub struct ItemIdentifier{
 }
 
 #[get("/item/{id}")]
-
 pub async fn getItemByID(item_identifier:Path<ItemIdentifier>)-> Json <String> {
     return Json("Hello World".to_string())
     // return Json(item_identifier.into_inner().id)
+}
+
+#[post("/item")]
+pub async fn createItem(item:Json<models::NewItem>)->Json<models::Item>{
+    return Json(models::Item{
+        id: 1,
+        name: item.name.clone(),
+        description: item.description.clone(),
+        date_created: chrono::Local::now().naive_local(),
+        value: item.value,
+    })
 }
