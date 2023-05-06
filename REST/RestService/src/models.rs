@@ -1,4 +1,4 @@
-use crate::schema::items;
+use schema::items;
 
 #[derive(Insertable)]
 #[table_name="Item"]
@@ -15,8 +15,8 @@ pub struct NewItem<'a>{
 
 pub struct Item(
     pub id::i32,
-    pub name:String,
-    pub description:String,
-    pub date_created:chrono::NaiveDateTime,
-    pub value:i32,
-)
+    pub name::String,
+    pub description::String,
+    pub date_created::chrono::NaiveDateTime,
+    pub value::i32,
+);

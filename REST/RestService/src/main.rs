@@ -2,15 +2,12 @@
 #[macro_use]
 extern crate diesel;
 
-mod api; 
-
-
-
 
 
 use actix_web ::{HttpServer, App, web::Data, middleware::Logger};
-
-use crate::api::item::{getItemByID, createItem};
+mod routes; 
+mod models;
+use routes::*; 
 
 #[actix_web::main]
 
