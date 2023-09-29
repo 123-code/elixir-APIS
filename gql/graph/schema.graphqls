@@ -19,6 +19,7 @@ type terapista{
     deletedAt: String
 }
 
+
 type Query{
   #query all pacientes
   pacientes: [Paciente!]!
@@ -33,6 +34,7 @@ type Mutation{
 }
 
 input PacienteInput{
+
   nombre:String!
   apellido:String!
   Vsemana:Int!
@@ -40,6 +42,7 @@ input PacienteInput{
 }
 
 input UpdatePaciente{
+
   nombre:String
   apellido:String
   Vsemana:Int

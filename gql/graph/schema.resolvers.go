@@ -2,10 +2,12 @@ package graph
 
 import (
 	"context"
-    "github.com/google/uuid"
 	"gql/db"
 	"gql/graph/model"
-    "time"
+	"log"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 var dbConn, _ = db.Connect()
@@ -16,6 +18,8 @@ func (r *mutationResolver) CreatePaciente(ctx context.Context, input model.Pacie
     id := uuid.New().String()
     createdAt := time.Now().String()
     updatedAt := time.Now().String()
+
+    
     paciente := model.Paciente{
         ID:        id,
         Nombre:    input.Nombre,
@@ -34,17 +38,36 @@ func (r *mutationResolver) CreatePaciente(ctx context.Context, input model.Pacie
     // Return a pointer to the newly created Paciente object
     return &paciente, nil
 }
+func (r *mutationResolver) DeletePaciente(ctx context.Context, id string) (*model.DeletePacienteResponse, error) {
+    // Parse the id
+    pacienteID, err := uuid.Parse(id)
+    if err != nil {
+        return nil, err
+    }
 
+    // Find the Paciente
+    var paciente model.Paciente
+    dbConn.First(&paciente, pacienteID.String())
 
+    // YOUR_DELETE_LOGIC_HERE
+
+    // Create a DeletePacienteResponse (replace with your actual response)
+    response := &model.DeletePacienteResponse{
+        // Fill in your response fields here
+    }
+
+    return response, nil
+}
 // UpdatePaciente is the resolver for the UpdatePaciente field.
 func (r *mutationResolver) UpdatePaciente(ctx context.Context, id string, input model.UpdatePaciente) (*model.Paciente, error) {
     var paciente model.Paciente
     pacienteID, err := uuid.Parse(id)
     if err != nil {
     return nil, err
+    log.Fatal("err")
     }
-
-    dbConn.First(&paciente, pacienteID)
+    idStr := pacienteID.String()
+    dbConn.First(&paciente, idStr)
     dbConn.Model(&paciente).Updates(&input)
     return &paciente, nil
 }
