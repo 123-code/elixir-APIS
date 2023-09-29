@@ -39,7 +39,12 @@ func (r *mutationResolver) CreatePaciente(ctx context.Context, input model.Pacie
 // UpdatePaciente is the resolver for the UpdatePaciente field.
 func (r *mutationResolver) UpdatePaciente(ctx context.Context, id string, input model.UpdatePaciente) (*model.Paciente, error) {
     var paciente model.Paciente
-    dbConn.First(&paciente, id)
+    pacienteID, err := uuid.Parse(id)
+    if err != nil {
+    return nil, err
+    }
+
+    dbConn.First(&paciente, pacienteID)
     dbConn.Model(&paciente).Updates(&input)
     return &paciente, nil
 }
